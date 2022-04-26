@@ -11,7 +11,7 @@ repositories {
 
 
 dependencies {
-    jruby "org.jruby:jruby-complete:9.1.15.0"
+    jruby "org.jruby:jruby-complete:9.3.4.0"
 //    rubyTest project(":embulk-core")
 //    rubyTest project(":embulk-deps")
 }
