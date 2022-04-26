@@ -48,7 +48,8 @@ task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
 //    args = ["-rjars/setup", "-S", "gem", "install", "msgpack", "-v" , "1.1.0"]
 //    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "msgpack", "-v" , "1.1.0"]
     args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "-i", "${buildDir}/dependencyGems", "msgpack", "-v" , "1.1.0"]
-//    environment "GEM_HOME": "${buildDir}/dependencyGems"
+    environment "GEM_HOME": "${buildDir}/dependencyGems"
+    environment "DEBUG_RESOLVER": "1"
 }
 
 test.dependsOn("installDependencyGems")
