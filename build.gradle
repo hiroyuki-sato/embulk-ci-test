@@ -1,0 +1,66 @@
+apply plugin: "java"
+
+configurations {
+    jruby
+    rubyTest
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    jruby "org.jruby:jruby-complete:9.1.15.0"
+//    rubyTest project(":embulk-core")
+//    rubyTest project(":embulk-deps")
+}
+
+task gemContents(type: Copy) {
+    doFirst {
+        delete("${buildDir}/gemContents")
+        mkdir("${buildDir}/gemContents")
+    }
+/*
+    into "${buildDir}/gemContents/"
+    from("${projectDir}/lib") {
+        into "lib"
+    }
+    from("${projectDir}/test") {
+        into "test"
+    }
+    from("${projectDir}/embulk.gemspec.template") {
+        rename "embulk.gemspec.template", "embulk.gemspec"
+        expand([
+            java_version: project.version,
+            ruby_version: project.ruby_version,
+        ])
+    }
+    from("${projectDir}/gem_version.rb.template") {
+        into "lib/embulk"
+        rename "gem_version.rb.template", "gem_version.rb"
+        expand([
+            java_version: project.version,
+            ruby_version: project.ruby_version,
+        ])
+    }
+*/
+}
+
+//task installDependencyGems(type: JavaExec,dependsOn: "gemContents") {
+task installDependencyGems(type: JavaExec) {
+    doFirst {
+        delete("${buildDir}/gemContents")
+        mkdir("${buildDir}/gemContents")
+
+        delete("${buildDir}/dependencyGems")
+        mkdir("${buildDir}/dependencyGems")
+    }
+    workingDir = file("${projectDir}/build/gemContents");
+    classpath = configurations.jruby
+    main = "org.jruby.Main"
+    args = ["-rjars/setup", "-S", "gem", "install", "msgpack", "-v" , "1.1.0"]
+    environment "GEM_HOME": "${buildDir}/dependencyGems"
+}
+
+test.dependsOn("installDependencyGems")
