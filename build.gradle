@@ -46,8 +46,8 @@ task installDependencyGems(type: JavaExec) {
     main = "org.jruby.Main"
 //    args = ["-rjars/setup", "-S", "gem", "install", "msgpack", "-v" , "1.1.0"]
 //    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "msgpack", "-v" , "1.1.0"]
-    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "-i", "../dependencyGems", "msgpack", "-v" , "1.1.0"]
-    environment "GEM_HOME": "${buildDir}/dependencyGems"
+    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "-i", "${buildDir}/dependencyGems", "msgpack", "-v" , "1.1.0"]
+//    environment "GEM_HOME": "${buildDir}/dependencyGems"
 }
 
 test.dependsOn("installDependencyGems")
