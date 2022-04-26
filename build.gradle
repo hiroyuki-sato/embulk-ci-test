@@ -32,8 +32,8 @@ task gemDebug(type: JavaExec) {
 }
 
 //task installDependencyGems(type: JavaExec,dependsOn: "gemContents") {
-task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
-//task installDependencyGems(type: JavaExec) {
+//task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
+task installDependencyGems(type: JavaExec) {
     doFirst {
         delete("${buildDir}/gemContents")
         mkdir("${buildDir}/gemContents")
@@ -45,7 +45,8 @@ task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
     classpath = configurations.jruby
     main = "org.jruby.Main"
 //    args = ["-rjars/setup", "-S", "gem", "install", "msgpack", "-v" , "1.1.0"]
-    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "msgpack", "-v" , "1.1.0"]
+//    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "msgpack", "-v" , "1.1.0"]
+    args = ["-rjars/setup", "-S", "gem", "install", "--debug", "--backtrace", "-i", "../dependencyGems", "msgpack", "-v" , "1.1.0"]
     environment "GEM_HOME": "${buildDir}/dependencyGems"
 }
 
