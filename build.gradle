@@ -16,39 +16,24 @@ dependencies {
 //    rubyTest project(":embulk-deps")
 }
 
-task gemContents(type: Copy) {
+task gemDebug(type: JavaExec) {
     doFirst {
         delete("${buildDir}/gemContents")
         mkdir("${buildDir}/gemContents")
+
+        delete("${buildDir}/dependencyGems")
+        mkdir("${buildDir}/dependencyGems")
     }
-/*
-    into "${buildDir}/gemContents/"
-    from("${projectDir}/lib") {
-        into "lib"
-    }
-    from("${projectDir}/test") {
-        into "test"
-    }
-    from("${projectDir}/embulk.gemspec.template") {
-        rename "embulk.gemspec.template", "embulk.gemspec"
-        expand([
-            java_version: project.version,
-            ruby_version: project.ruby_version,
-        ])
-    }
-    from("${projectDir}/gem_version.rb.template") {
-        into "lib/embulk"
-        rename "gem_version.rb.template", "gem_version.rb"
-        expand([
-            java_version: project.version,
-            ruby_version: project.ruby_version,
-        ])
-    }
-*/
+    workingDir = file("${projectDir}/build/gemContents");
+    classpath = configurations.jruby
+    main = "org.jruby.Main"
+    args = ["-e", 'puts Dir.pwd; puts ENV["GEM_HOME"]']
+    environment "GEM_HOME": "${buildDir}/dependencyGems"
 }
 
 //task installDependencyGems(type: JavaExec,dependsOn: "gemContents") {
-task installDependencyGems(type: JavaExec) {
+task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
+//task installDependencyGems(type: JavaExec) {
     doFirst {
         delete("${buildDir}/gemContents")
         mkdir("${buildDir}/gemContents")
