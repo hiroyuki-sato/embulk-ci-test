@@ -27,7 +27,7 @@ task gemDebug(type: JavaExec) {
     workingDir = file("${projectDir}/build/gemContents");
     classpath = configurations.jruby
     main = "org.jruby.Main"
-    args = ["-e", 'File.open(IO::NULL, "w"){}']
+    args = ["-e", 'File.open(IO::NULL, :w.to_s){}']
     environment "GEM_HOME": "${buildDir}/dependencyGems"
 }
 
