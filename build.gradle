@@ -28,7 +28,7 @@ task gemDebug(type: JavaExec) {
     classpath = configurations.jruby
     main = "org.jruby.Main"
     args = ["-e", 'File.open(IO::NULL, :w.to_s){}']
-    environment "GEM_HOME": "${buildDir}/dependencyGems"
+    environment "DEBUG_RESOLVER": "1"
 }
 
 //task installDependencyGems(type: JavaExec,dependsOn: "gemContents") {
