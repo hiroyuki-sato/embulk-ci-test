@@ -27,13 +27,13 @@ task gemDebug(type: JavaExec) {
     workingDir = file("${projectDir}/build/gemContents");
     classpath = configurations.jruby
     main = "org.jruby.Main"
-    args = ["-e", 'puts Dir.pwd; puts ENV["GEM_HOME"]']
+    args = ["-e", 'File.open(IO::NULL, "w"){}']
     environment "GEM_HOME": "${buildDir}/dependencyGems"
 }
 
 //task installDependencyGems(type: JavaExec,dependsOn: "gemContents") {
-//task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
-task installDependencyGems(type: JavaExec) {
+task installDependencyGems(type: JavaExec,dependsOn: "gemDebug") {
+//task installDependencyGems(type: JavaExec) {
     doFirst {
         delete("${buildDir}/gemContents")
         mkdir("${buildDir}/gemContents")
