@@ -17,14 +17,14 @@ jobs:
         - "check"
     steps:
     - uses: actions/checkout@v2
-#    - name: Set up OpenJDK 8
-#      uses: actions/setup-java@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+    - name: Set up OpenJDK 8
+      uses: actions/setup-java@v2
+#    - name: Set up Ruby
+#      uses: ruby/setup-ruby@v1
       with:
-#        java-version: 8
-#        distribution: "zulu"
-        ruby-version: jruby
+        java-version: 8
+        distribution: "zulu"
+#        ruby-version: jruby
     - name: Check
-#      run: ./gradlew --debug ${{ matrix.gradle_task }}
-      run: "ruby nulltest.rb"
+      run: ./gradlew --debug ${{ matrix.gradle_task }}
+#      run: "ruby nulltest.rb"

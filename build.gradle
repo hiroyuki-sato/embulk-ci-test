@@ -27,9 +27,9 @@ task gemDebug(type: JavaExec) {
     workingDir = file("${projectDir}/build/gemContents");
     classpath = configurations.jruby
     main = "org.jruby.Main"
-//    args = ["-e", 'File.open(IO::NULL, :w.to_s){}']
-    args = ["-e", 'puts :HOGEHOGE.to_s + ENV[:DEBUG_RESOLVER.to_s]']
-    environment "DEBUG_RESOLVER": "1"
+    args = ["-e", 'File.open(IO::NULL, :w.to_s){}']
+//    args = ["-e", 'puts :HOGEHOGE.to_s + ENV[:DEBUG_RESOLVER.to_s]']
+//    environment "DEBUG_RESOLVER": "1"
 }
 
 //task installDependencyGems(type: JavaExec,dependsOn: "gemContents") {
