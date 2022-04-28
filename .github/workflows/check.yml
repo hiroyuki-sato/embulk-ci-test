@@ -15,7 +15,7 @@ jobs:
         with:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
-      - run: ./gradlew --debug ${{ matrix.gradle_task }}
+      - run: ./gradlew --debug check
 
 
 
